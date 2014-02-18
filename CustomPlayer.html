@@ -1,0 +1,247 @@
+<html>
+<head>
+<title>
+custom video player 
+</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" >
+$(document).ready(function(){
+$("#play_pause_Btn").click(playPauseHandler);
+$("#stop_Btn").click(stopHandler);
+$("#full_screen_Btn").click(fullScreenhandler);
+$("#mute_unmute_Btn").click(muteUnmuteHandler);
+
+$("#rewind_Btn").click(rewindVideonhandler);
+$("#forward_Btn").click(forwardVideohandler);
+$("#replay_Btn").click(replayVideohandler);
+
+
+/*document.getElementById("rew").addEventListener("click", function(){
+                setTime(-10);                
+            }, false);
+            //  Skip forward 10 seconds
+            document.getElementById("fwd").addEventListener("click", function(){
+                setTime(10);
+            }, false);*/
+
+$("#decrease_vol_Btn").click(decreaseVolHandler);
+$("#increase_vol_Btn").click(increaseVolHandler);
+
+var video = document.getElementById("sampleVideo");
+var volumeBar = document.getElementById("volume-bar");
+var seekBar = document.getElementById("seek-bar");
+
+// Event listener for the seek bar
+seekBar.addEventListener("change", function() {
+  // Calculate the new time
+  var time = video.duration * (seekBar.value / 100);
+
+  // Update the video time
+  video.currentTime = time;
+  //seekBar.innerHTML = video.currentTime;
+});
+
+
+// Update the seek bar as the video plays
+video.addEventListener("timeupdate", function() {
+  // Calculate the slider value
+  var value = (100 / video.duration) * video.currentTime;
+  // Update the slider value
+  seekBar.value = value;
+  
+});
+
+
+// Event listener for the volume bar
+volumeBar.addEventListener("change", function() {
+  // Update the video volume
+  video.volume = volumeBar.value;
+});
+
+
+//$("#vol_msg").html("Vol :"+video.volume);
+
+video.addEventListener("timeupdate",function(){
+vid_duration = secondsToHms(video.currentTime);
+//$("#videoDuration123").html(a);
+//$("#videoDuration").html(video.currentTime+"-"+vid_duration);
+$("#videoProgress").html(vid_duration);
+});
+
+
+$("#sampleVideo").on("ended", function() {
+   //alert("I'm done!");
+   $("#play_pause_Btn").prop("value","Play");
+   $("#videoProgress").html("0:00");
+   $("#seek-bar").val("0");
+   
+});
+
+});
+
+
+
+
+function rewindVideonhandler(){
+setTime(-10);   
+}
+
+function forwardVideohandler(){
+setTime(10);   
+}
+
+function replayVideohandler(){
+setTime(0);   
+}
+
+
+
+ function setTime(tValue) {
+ var video = document.getElementById("sampleVideo");
+if (tValue == 0) {
+                        video.currentTime = tValue;
+                    }
+                    else {
+                        video.currentTime += tValue;
+                    }
+                    }
+
+// function for video full screen
+function fullScreenhandler(){
+var video = document.getElementById("sampleVideo");
+if (video.requestFullscreen) {
+    video.requestFullscreen();
+  } else if (video.mozRequestFullScreen) {
+    video.mozRequestFullScreen(); // Firefox
+  } else if (video.webkitRequestFullscreen) {
+    video.webkitRequestFullscreen(); // Chrome and Safari
+  }
+
+}
+
+
+// function for increasing volume of a video
+function increaseVolHandler(){
+var video = document.getElementById("sampleVideo");
+if(video.volume == 1.0){
+alert("Vol is max");
+}
+else{
+video.volume += 0.1;
+}
+}
+
+// function for decreasing volume of a video
+function decreaseVolHandler(){
+var video = document.getElementById("sampleVideo");
+if(video.volume < 0.1){
+alert("Vol is min");
+}
+else{
+video.volume -= 0.1;
+}
+}
+
+// function for mute and unmute of a volume for video
+function muteUnmuteHandler(){
+var video = document.getElementById("sampleVideo");
+if(video.muted == false){
+video.muted = true;
+$("#mute_unmute_Btn").prop("value","UnMute");
+}
+else{
+video.muted = false;
+$("#mute_unmute_Btn").prop("value","Mute");
+}
+}
+
+// function for play and pause a video 
+function playPauseHandler()
+{
+//alert("onHandler function called");
+  var video = document.getElementById("sampleVideo");
+  if(video.paused)
+  {
+  	 video.play();
+  	 $("#play_pause_Btn").prop("value","Pause"); 	
+  }
+  else{
+  	 video.pause();
+  	 $("#play_pause_Btn").prop("value","Play"); 	
+  
+  }
+}
+
+// function for stop a video 
+function stopHandler(){
+  var video = document.getElementById("sampleVideo");
+  video.pause();
+  video.currentTime=0;
+  $("#play_pause_Btn").prop("value","Play"); 	
+}
+
+
+
+function secondsToHms(d) {
+d = Number(d);
+var h = Math.floor(d / 3600);
+var m = Math.floor(d % 3600 / 60);
+var s = Math.floor(d % 3600 % 60);
+return ((h > 0 ? h + ":" : "") + (m > 0 ? (h > 0 && m < 10 ? "0" : "") + m + ":" : "0:") + (s < 10 ? "0" : "") + s); 
+}
+
+
+
+</script>
+<style type="text/css">
+body {
+    //font-size: 62.5%;
+}
+
+.video {
+    position: relative;
+}
+
+
+#media-player {
+	padding: 1em 1em 0.5em; float: left; background-color: rgb(51, 51, 51);
+}
+</style>
+</head>
+<body>
+<h3>Custom video player using the media features in HTML5</h3>
+<div id="media-player"> 
+ <video id="sampleVideo" src="video/podcast_teaser.mp4" >
+	<source src="video/podcast_teaser.ogv"/>
+	<source src="video/podcast_teaser.webm"/>
+	<p>Browser does not support this video.</p>
+	<object data="videoplayer.swf" >
+		<param name="flashvars" value="video/podcast_teaser.mp4" />
+		HTML5 video and flash is not supported. 	
+	</object>
+	</video>
+	
+	
+	<div>
+	<input type="button" id="play_pause_Btn" value="Play"/>
+	<input type="range" id="seek-bar" value="0"><span id="videoProgress"></span></input>
+	<!--<input type="button" id="stop_Btn" value="Stop"/>-->
+	<input type="button" id="mute_unmute_Btn" value="Mute"/>
+   <input type="range" id="volume-bar" min="0" max="1" step="0.1" value="1" orient="vertical">
+	<input type="button" id="full_screen_Btn" value="Full Screen"/><br> 
+	
+	<input type="button" id="rewind_Btn" value="Rewind"/>
+	<input type="button" id="forward_Btn" value="Forward"/>
+	<input type="button" id="replay_Btn" value="Replay"/>
+	  
+	<!--<input type="button" id="decrease_vol_Btn" value="DecreaseVol"/>
+	<input type="button" id="increase_vol_Btn" value="IncreaseVol"/>-->
+	<div id="vol_msg"></div>
+	<div id="videoDuration"></div>
+	<div id="videoDuration123"></div>
+	</div>
+	</div>
+	
+</body>
+
+</html>

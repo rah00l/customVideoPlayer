@@ -1,0 +1,27 @@
+Basics - Co
+
+1) Play/Pause --Done
+2) Seek-bar for video run -- Done  
+  a) duration need to update while video is running -- not done --done
+3) mute/UnMute --Done (range for vol)
+4) Full-screen --Done
+
+
+---------------------------------------------------------
+  
+5)  Rewind    (10 sec back)  -- done 
+6)  Forward   (10 sec ahead) -- done 
+7)  Replay    (start from begining) -- done 
+
+--------------------------------------------------------- 
+
+
+Advance - extra
+
+a) after video completes seek bar position should be at initial position   -- done
+b) after video completes videoduration should be at 0:00  	-- done
+c) after video completes pause button should be play   -- done
+ 
+d) After full screen default controls appicable, that need to be remove ---not done 
+ 
+UI - custom controls look need to change  --not done

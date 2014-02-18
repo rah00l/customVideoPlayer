@@ -1,0 +1,23 @@
+1. A customized video player must be created without using the default controls provided by browsers. It must have six buttons, 1 seek bar and 1 slider for volume control as shown in above screen.
+
+--- 1) video player - creation of file and folder structure containing basic video player program. --started
+
+2. The functionalities for these controls must be provided programmatically using JavaScript.
+
+--- 2) Started customize --started
+
+3. Listed below the expected behavior for each button.
+a. “Play/Pause”: On clicking on “Play”, the video must start playing and the label on button must be changed to “Pause “ and vice versa.   --- Done
+
+
+b. ”Rewind”: The video must skip back by 10 seconds.
+c. ”Forward”: The video must skip move ahead by 10 seconds.
+d. ”Replay”: The video must start playing from beginning.
+e. ”Mute/UnMute”: On clicking on “Mute”, the video must mute and the label on button must change to “UnMute ” and vice versa.
+f. ”FullScreen”: The video must play in fullscreen mode. Add support for all browsers.
+4. The player must have a seek bar to display the duration of video played so far which must be continuously updated as the video is playing. 
+5. The player must also include a volume control in the form of a slider. 
+6. A sample video file has been provided in Sample_Video.zip along with this document. Kindly extract and use the video present in it. 
+7. Avoid uploading your own video files and use the sample video provided.
+8. It is recommended to use latest version of chrome to test your player.
+9. Zip all contents of html, js, css and video as CustomPlayer.zip and upload.
